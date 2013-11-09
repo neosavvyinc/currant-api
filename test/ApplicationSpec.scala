@@ -11,20 +11,18 @@ import play.api.test.Helpers._
  * For more information, consult the wiki.
  */
 @RunWith(classOf[JUnitRunner])
-class ApplicationSpec extends Specification {
+class AuthenticationSpec extends PlaySpecification {
 
-  "Application" should {
+  "Authentication" should {
 
-    "send 404 on a bad request" in new WithApplication{
-      route(FakeRequest(GET, "/boum")) must beNone
+    "respond to the login Action" in new WithApplication {
+      val result = controllers.Authentication.login()(FakeRequest())
+
+      status(result) must equalTo(OK)
+      contentType(result) must beSome("text/plain")
+      contentAsString(result) must contain("It works!")
     }
 
-    "render the index page" in new WithApplication{
-      val home = route(FakeRequest(GET, "/")).get
 
-      status(home) must equalTo(OK)
-      contentType(home) must beSome.which(_ == "text/html")
-      contentAsString(home) must contain ("Your new application is ready.")
-    }
   }
 }
