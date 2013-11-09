@@ -1,6 +1,9 @@
 package com.currant
 
 package object model {
+  
+  case class Response[T](payload : T, errorCode : Option[Int] = None, errorMessage : Option[String] = None, displayErrorMessage : Option[String] = None)
+  
 
   case class SportCreateRequest(
                                  name: String,
