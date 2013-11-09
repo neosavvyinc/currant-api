@@ -467,7 +467,7 @@ POST          /profiles/:currantUserId/friends/                   controllers.Pr
 #
 # CC: I also see this as an entity nested under profile because you want to know about a game for a given specific user
 # join, leave, save a game, etc.
-POST          /games/:gameId/:status/:currantUserId               controllers.Games.updateGameProfileConnection(gameId:Float, status:String, currantUserId:Float )
+#POST          /games/:gameId/:status/:currantUserId               controllers.Games.updateGameProfileConnection(gameId:Float, status:String, currantUserId:Float )
 GET           /profiles/:id/games                                 controllers.Profiles.findAllGames(id: Float, location: String)
 
 # CC: join/save/leave a game, include list of games and actions and update accordingly. if the action is 'leave', just remove that game from the collection

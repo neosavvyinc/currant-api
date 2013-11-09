@@ -3,6 +3,8 @@ package com.currant.sport
 import play.api.test.{FakeHeaders, FakeRequest, WithApplication, PlaySpecification}
 import play.api.libs.json.Json
 import com.currant.model.SportCreateRequest
+import play.mvc.Http.HeaderNames
+import play.api.http.MimeTypes
 
 class SportSpec extends PlaySpecification {
 
@@ -13,12 +15,15 @@ class SportSpec extends PlaySpecification {
   "Sports" should {
 
     "respond to the create Action" in new WithApplication {
-      val fr = FakeRequest(POST, "/sport").withJsonBody(Json.toJson(SportCreateRequest("baseball", "baseball", true)))
+      val fr = FakeRequest(POST, "/sport")
+        .withHeaders(HeaderNames.CONTENT_TYPE -> MimeTypes.JSON)
+        .withJsonBody(Json.toJson(SportCreateRequest("baseball", "baseball", true)))
       val result = com.currant.sport.SportController.create(fr)
 
       status(result) must equalTo(OK)
-      contentType(result) must beSome("application/json")
-      val str = contentAsString(result) must contain("It works!")
+      contentType(result) must beSome(MimeTypes.JSON)
+      val str = contentAsString(result)
+      print(str);
     }
 
 
