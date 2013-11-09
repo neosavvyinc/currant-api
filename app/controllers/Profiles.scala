@@ -15,21 +15,21 @@ object Profiles  extends Controller {
 
   def updatePushIdentifier() = play.mvc.Results.TODO
 
-  def update() = play.mvc.Results.TODO
+  def update( id: Float) = play.mvc.Results.TODO
 
   def find(id: Float) = play.mvc.Results.TODO
 
   def findExtended(id: Float) = play.mvc.Results.TODO
 
-  def findClubs() = play.mvc.Results.TODO
+  def findClubs(currantUserId:Float) = play.mvc.Results.TODO
 
-  def exploreClubs() = play.mvc.Results.TODO
+  def exploreClubs(currantUserId:Float) = play.mvc.Results.TODO
 
-  def joinClub() = play.mvc.Results.TODO
+  def joinClub(currantUserId:Float) = play.mvc.Results.TODO
 
-  def updateClubs() = play.mvc.Results.TODO
+  def updateClubs(currantUserId:Float) = play.mvc.Results.TODO
 
-  def leaveClub() = play.mvc.Results.TODO
+  def leaveClub(currantUserId:Float, clubId:Float) = play.mvc.Results.TODO
 
   def findFriends(currantUserId: Float, friendStatus: String) = play.mvc.Results.TODO
 
