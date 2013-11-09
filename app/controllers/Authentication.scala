@@ -11,7 +11,6 @@ import play.api.mvc._
  */
 object Authentication  extends Controller {
 
-
   def login( ) = Action { request =>
     Ok("It works!")
   }
