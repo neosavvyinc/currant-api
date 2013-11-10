@@ -233,7 +233,8 @@ POST          /friends/:action                                    controllers.Fr
 # CC: @adam, I know you don't like having this as a route if there's only one controller method right now, but I think this deserves a route
 # we'll (probably) eventually want to have some way to add/deactivate/update sports, even if it's just a Currant-curated admin action
 # my vote is for this, but we should discuss, obviously
-GET           /sports                                             controllers.Sports.findAll()
+
+GET           /sports                                             com.currant.sport.SportController.get()
 
 
 # Finds a list of all clubs for a user
@@ -479,3 +480,5 @@ POST          /profiles/:id/games                                 controllers.Pr
 # id for route vs. verbose id names?
 # resource/controller plurality, Model singular
 # Move all comments to proper scala comments and simplify this file
+
+POST          /sports                                            com.currant.sport.SportController.create()

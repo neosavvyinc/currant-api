@@ -1,8 +1,7 @@
 package com.currant.sport
 
-import play.api.test.{FakeHeaders, FakeRequest, WithApplication, PlaySpecification}
+import play.api.test.{FakeRequest, WithApplication, PlaySpecification}
 import play.api.libs.json.Json
-import com.currant.model.SportCreateRequest
 import play.mvc.Http.HeaderNames
 import play.api.http.MimeTypes
 
