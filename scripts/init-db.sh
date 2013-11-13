@@ -14,6 +14,11 @@ echo "DROP DATABASE IF EXISTS currant;" | psql -h localhost -p 5432 postgres
 echo "Creating database ... "
 echo "CREATE DATABASE $DB;" | psql -h localhost -p 5432 postgres
 
+echo ".....creating schema...."
+
+psql -h localhost -p 5432 $DB -f ddl.sql
+
+
 echo "Initializing system accounts ..."
 
 echo " ... RW service ..."
@@ -24,11 +29,5 @@ echo "CREATE ROLE readwrite_currant; GRANT SELECT, INSERT, UPDATE, DELETE ON ALL
 echo "CREATE ROLE currant_user with LOGIN PASSWORD '$currantPasswordEscaped' IN ROLE readwrite_currant;" | psql -h localhost -p 5432 $DB
 echo "CREATE ROLE integration_test_currant with LOGIN PASSWORD 'integration_test_currant' IN ROLE readwrite_currant;" | psql -h localhost -p 5432 $DB
 echo "ALTER ROLE integration_test_currant CREATEDB;" | psql -h localhost -p 5432 $DB
-
-
-echo ".....creating schema...."
-
-psql -h localhost -p 5432 $DB -f ddl.sql
-
 
 echo "Done!"

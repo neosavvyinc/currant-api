@@ -481,4 +481,5 @@ POST          /profiles/:id/games                                 controllers.Pr
 # resource/controller plurality, Model singular
 # Move all comments to proper scala comments and simplify this file
 
-POST          /sports                                            com.currant.sport.SportController.create()
+PUT          /sports                                            com.currant.sport.SportController.create()
+POST         /sports                                            com.currant.sport.SportController.update()
