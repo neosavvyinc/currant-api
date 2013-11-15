@@ -1,7 +1,7 @@
 package com.currant.sport
 
 import com.currant.base.CurrantController
-import play.api.mvc.Action
+import play.api.mvc._
 import play.api.libs.json._
 import com.currant.model.Auditable
 import scala.concurrent._
@@ -14,16 +14,22 @@ object SportController extends CurrantController{
   implicit val sportWrites = Json.writes[Sport]
   val sportReads = Json.reads[Sport]
 
-  def create = Action.async(parse.json) { request =>
+  def create = Action(parse.json) { request =>
     val req = request.body.as[SportCreateRequest](sportCreateReads)
-    toJson(Sport.create(Auditable(req, "user")))
+    Async {
+      toJson(Sport.create(Auditable(req, "user")))
+    }
   }
 
-  def get = Action.async { request =>
-    toJson(Sport.getAll)
+  def get = Action { request =>
+    Async {
+      toJson(Sport.getAll)
+    }
   }
 
-  def update = Action.async(parse.json) { request =>
-    toJson(Sport.update(request.body.as[Sport](sportReads)))
+  def update = Action(parse.json) { request =>
+    Async {
+      toJson(Sport.update(request.body.as[Sport](sportReads)))
+    }
   }
 }
