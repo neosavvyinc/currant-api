@@ -22,7 +22,7 @@ GET           /assets/*file                                       controllers.As
 #   facebookId: "" // optional parameter in the case of email registration
 #  }
 # }
-POST          /registration/:id                                   controllers.User.register( id: Long )
+POST          /registration/:id                                   com.currant.user.UsersController.register( id: Long )
 
 # Login
 
@@ -30,7 +30,7 @@ POST          /registration/:id                                   controllers.Us
 #  token: "",
 #  validationToken: ""
 #}
-GET           /profiles/facebook/:facebookId                      controllers.Profiles.findByFacebookId( facebookId: String )
+GET           /profiles/facebook/:facebookId                      com.currant.profile.ProfilesController.findByFacebookId( facebookId: String )
 
 # Request: {
 #  token: "",
@@ -40,7 +40,7 @@ GET           /profiles/facebook/:facebookId                      controllers.Pr
 #   password: ""
 # }
 #}
-POST          /login                                              controllers.Authentication.login()
+#POST          /login                                              controllers.Authentication.login()
 
 # Push Notifications
 # Request: {
@@ -54,7 +54,7 @@ POST          /login                                              controllers.Au
 #   }
 # }
 #}
-POST          /profiles/pushIdentifier                            controllers.Profiles.updatePushIdentifier()
+POST          /profiles/pushIdentifier                            com.currant.profile.ProfilesController.updatePushIdentifier()
 
 
 # Profile
@@ -96,7 +96,7 @@ POST          /profiles/pushIdentifier                            controllers.Pr
 #   }
 # }
 #}
-PUT           /profiles/:id                                       controllers.Profiles.update( id: Float )
+PUT           /profiles/:id                                       com.currant.profile.ProfilesController.update( id: Float )
 
 # Response: {
 #  token: "",
@@ -136,7 +136,7 @@ PUT           /profiles/:id                                       controllers.Pr
 #   }
 # }
 #}
-GET           /profiles/:id                                       controllers.Profiles.find(id: Float)
+GET           /profiles/:id                                       com.currant.profile.ProfilesController.find(id: Float)
 
 # Response: {
 #  token: "",
@@ -161,7 +161,7 @@ GET           /profiles/:id                                       controllers.Pr
 #}
 
 # ?query params for extended?
-GET           /profiles/:id/extended                              controllers.Profiles.findExtended(id: Float)
+GET           /profiles/:id/extended                              com.currant.profile.ProfilesController.findExtended(id: Float)
 
 
 
@@ -178,7 +178,7 @@ GET           /profiles/:id/extended                              controllers.Pr
 #   }
 # }
 # :type can be "saved", "joined", "created" - if type not provided - return all
-GET           /games                                              controllers.Games.find( gameType: String, location: String )
+GET           /games                                              com.currant.game.GamesController.find( gameType: String, location: String )
 
 
 #==================================================
@@ -199,8 +199,8 @@ GET           /games                                              controllers.Ga
 # }
 
 # :type can be "accepted", "invited", "pending", or "blocked"
-#POST          /friends/:currantProfileId                                           controllers.Friend.find(currantProfileId: Float, friendType : String)
-GET           /friends/:currantProfileId                          controllers.Friend.find(currantProfileId: Float, friendType : String)
+#POST          /friends/:currantProfileId                                           com.currant.friend.FriendsController.find(currantProfileId: Float, friendType : String)
+GET           /friends/:currantProfileId                          com.currant.friend.FriendsController.find(currantProfileId: Float, friendType : String)
 
 
 # Performs an action on a group of friends
@@ -217,7 +217,7 @@ GET           /friends/:currantProfileId                          controllers.Fr
 #   }
 # }
 # :action can be any one of "add", "remove", or "block"
-POST          /friends/:action                                    controllers.Friend.update(action:String )
+POST          /friends/:action                                    com.currant.friend.FriendsController.update(action:String )
 
 #==================================================
 
@@ -242,8 +242,8 @@ GET           /sports                                             com.currant.sp
 # :token is the token for authentication calculated by client
 # :validationToken is the token used to calculate token when combined with shared secret
 # :currantProfileId is the user for whom you are requesting the clubs they are a member
-#GET           /games/clubs/:currantProfileId/:token/:validationToken/              controllers.Games.findClubsForMember()
-GET           /games/clubs/:currantProfileId                      controllers.Games.findClubsForMember( currantProfileId: Float )
+#GET           /games/clubs/:currantProfileId/:token/:validationToken/              com.currant.game.GamesController.findClubsForMember()
+#GET           /games/clubs/:currantProfileId                      com.currant.game.GamesController.findClubsForMember( currantProfileId: Float )
 
 
 
@@ -302,14 +302,14 @@ GET           /games/clubs/:currantProfileId                      controllers.Ga
 #   }
 # }
 #}
-POST          /games/new                                          controllers.Games.create()
-PUT           /games/:id                                          controllers.Games.update(id: Float)
-DELETE        /games/:id                                          controllers.Games.delete(id: Float)
+POST          /games/new                                          com.currant.game.GamesController.create()
+PUT           /games/:id                                          com.currant.game.GamesController.update(id: Float)
+DELETE        /games/:id                                          com.currant.game.GamesController.delete(id: Float)
 
 
 
 # Returns information on the number of players in a game (and their information)
-GET           /games/:id/players                                  controllers.Games.findPlayers(id: Float)
+GET           /games/:id/players                                  com.currant.game.GamesController.findPlayers(id: Float)
 
 
 # Request: {
@@ -323,7 +323,7 @@ GET           /games/:id/players                                  controllers.Ga
 #   }
 # }
 # CC: pass a collection of players w/ actions in request body
-POST          /games/:gameId/players                              controllers.Games.updatePlayers(gameId: Float)
+POST          /games/:gameId/players                              com.currant.game.GamesController.updatePlayers(gameId: Float)
 
 
 # This saves custom equipment relevant only to the game_id provided
@@ -336,24 +336,24 @@ POST          /games/:gameId/players                              controllers.Ga
 #       quantity: "", etc.
 #   }
 #}
-POST          /games/:gameId/equipment/new                        controllers.Games.createCustomEquipment( gameId: Float )
+POST          /games/:gameId/equipment/new                        com.currant.game.GamesController.createCustomEquipment( gameId: Float )
 #
 # CC: Probably additional routes to remove/update equipment associated with a game here as well??
 #
 
 # Search Games
-GET           /games/:gameType                                    controllers.Games.findGames( gameType:String, lat:Float, long:Float, sportId:Float, visibility:String )
+GET           /games/:gameType                                    com.currant.game.GamesController.findGames( gameType:String, lat:Float, long:Float, sportId:Float, visibility:String )
 
 
 
 # We have moved this to the /club service below - see /clubs/:clubId/matches
-GET           /games/clubs/:clubId                                controllers.Games.findGamesForClubId( clubId: Float )
+#GET           /games/clubs/:clubId                                com.currant.game.GamesController.findGamesForClubId( clubId: Float )
 
 # Adds a row to the GAME_PROFILE_CONNECTION with
 # Todo: maybe redo this api call to simplify for save, leave, and join a game for one user
 #
 # I also see this as an entity nested under profile. you want to know about a game for a specific user
-POST          /games/:gameId/:status/:currantUserId               controllers.Games.updateGameProfileConnection( gameId:Float, status: String, currantUserId: Float )
+POST          /games/:gameId/:status/:currantUserId               com.currant.game.GamesController.updateGameProfileConnection( gameId:Float, status: String, currantUserId: Float )
 
 
 # Request: {
@@ -397,17 +397,17 @@ POST          /games/:gameId/:status/:currantUserId               controllers.Ga
 #   }
 # }
 #}
-POST          /clubs/new                                          controllers.Clubs.create()
-GET           /clubs/:clubId/members                              controllers.Clubs.findMembers( clubId: Float)
-GET           /clubs/:clubId                                      controllers.Clubs.findClubInfo( clubId: Float)
+POST          /clubs/new                                          com.currant.club.ClubsController.create()
+GET           /clubs/:clubId/members                              com.currant.club.ClubsController.findMembers( clubId: Float)
+GET           /clubs/:clubId                                      com.currant.club.ClubsController.findClubInfo( clubId: Float)
 
 # matchType is future, past, all
 # CC: is a 'Game' and a 'Match' the same thing? we should probably stick to one term, doesn't really matter which, as long as we're consistent
-GET           /clubs/:clubId/matches                              controllers.Clubs.findMatches( clubId: Float, matchType : String )
+GET           /clubs/:clubId/matches                              com.currant.club.ClubsController.findMatches( clubId: Float, matchType : String )
 
-GET           /profiles/:currantUserId/clubs                      controllers.Profiles.findClubs( currantUserId:Float )
+GET           /profiles/:currantUserId/clubs                      com.currant.profile.ProfilesController.findClubs( currantUserId:Float )
 
-GET           /profiles/:currantUserId/clubs/explore              controllers.Profiles.exploreClubs( currantUserId: Float)
+GET           /profiles/:currantUserId/clubs/explore              com.currant.profile.ProfilesController.exploreClubs( currantUserId: Float)
 
 
 # Request: {
@@ -417,13 +417,13 @@ GET           /profiles/:currantUserId/clubs/explore              controllers.Pr
 #   club_id: "",
 #  }
 # }
-POST          /profiles/:currantUserId/clubs/join                 controllers.Profiles.joinClub(currantUserId:Float)
+POST          /profiles/:currantUserId/clubs/join                 com.currant.profile.ProfilesController.joinClub(currantUserId:Float)
 
 # CC: will a user ever be joining multiple clubs at once/in the same request? for these nested resources, we could just assume that adding/updating
 # multiple entities is possible (a la friends) and the following (instead of above /clubs/join route) and pass in a list of clubs (with actions to take).
 # The more I think about it, I think the DELETE method on a nested resource like this is gonnna end up feeling awkward. 
-POST          /profiles/:currantUserId/clubs                      controllers.Profiles.updateClubs(currantUserId:Float)
-DELETE        /profiles/:currantUserId/clubs/:clubId/leave        controllers.Profiles.leaveClub(currantUserId:Float, clubId:Float)
+POST          /profiles/:currantUserId/clubs                      com.currant.profile.ProfilesController.updateClubs(currantUserId:Float)
+DELETE        /profiles/:currantUserId/clubs/:clubId/leave        com.currant.profile.ProfilesController.leaveClub(currantUserId:Float, clubId:Float)
 
 # CC: 'friends' routes moved here, under profile. as I see it, the concept of a 'friend' doesn't really exist out of the context of a user/profile,
 # so why not have this nested under profiles?
@@ -443,7 +443,7 @@ DELETE        /profiles/:currantUserId/clubs/:clubId/leave        controllers.Pr
 # }
 
 # :friendStatus can be "accepted", "invited", "pending", or "blocked"
-GET           /profiles/:currantUserId/friends                    controllers.Profiles.findFriends(currantUserId: Float, friendStatus: String)
+GET           /profiles/:currantUserId/friends                    com.currant.profile.ProfilesController.findFriends(currantUserId: Float, friendStatus: String)
 
 # Performs an action on a group of friends
 # Response: {
@@ -461,18 +461,18 @@ GET           /profiles/:currantUserId/friends                    controllers.Pr
 #   }
 # }
 # "add", "remove", or "block", include collection of friends (with name and action to take) in request body
-POST          /profiles/:currantUserId/friends/                   controllers.Profiles.updateFriends(currantUserId: Float)
+POST          /profiles/:currantUserId/friends/                   com.currant.profile.ProfilesController.updateFriends(currantUserId: Float)
 
 # Adds a row to the GAME_PROFILE_CONNECTION with
 # Todo: maybe redo this api call to simplify for save, leave, and join a game for one user
 #
 # CC: I also see this as an entity nested under profile because you want to know about a game for a given specific user
 # join, leave, save a game, etc.
-#POST          /games/:gameId/:status/:currantUserId               controllers.Games.updateGameProfileConnection(gameId:Float, status:String, currantUserId:Float )
-GET           /profiles/:id/games                                 controllers.Profiles.findAllGames(id: Float, location: String)
+#POST          /games/:gameId/:status/:currantUserId               com.currant.game.GamesController.updateGameProfileConnection(gameId:Float, status:String, currantUserId:Float )
+GET           /profiles/:id/games                                 com.currant.profile.ProfilesController.findAllGames(id: Float, location: String)
 
 # CC: join/save/leave a game, include list of games and actions and update accordingly. if the action is 'leave', just remove that game from the collection
-POST          /profiles/:id/games                                 controllers.Profiles.updateGames(id: Float)
+POST          /profiles/:id/games                                 com.currant.profile.ProfilesController.updateGames(id: Float)
 
 # TO DO
 # group like-resource routes

@@ -1,8 +1,9 @@
-package controllers
+package com.currant.game
 
+import com.currant.base.CurrantController
 import play.api.mvc._
 
-object Games extends Controller {
+object GamesController extends CurrantController {
   def find(gameType: String, location: String) = play.mvc.Results.TODO
 
   def findClubsForMember(currantProfileId: Float ) = play.mvc.Results.TODO

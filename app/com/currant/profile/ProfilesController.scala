@@ -1,5 +1,6 @@
-package controllers
+package com.currant.profile
 
+import com.currant.base.CurrantController
 import play.api.mvc._
 
 /**
@@ -9,7 +10,7 @@ import play.api.mvc._
  * Date: 11/9/13
  * Time: 12:40 PM
  */
-object Profiles  extends Controller {
+object ProfilesController extends CurrantController {
 
   def findByFacebookId( facebookId : String ) = play.mvc.Results.TODO
 

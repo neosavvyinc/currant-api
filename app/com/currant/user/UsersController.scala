@@ -1,5 +1,6 @@
-package controllers
+package com.currant.user
 
+import com.currant.base.CurrantController
 import play.api.mvc._
 
 /**
@@ -9,7 +10,7 @@ import play.api.mvc._
  * Date: 11/9/13
  * Time: 11:53 AM
  */
-object User extends Controller {
+object UsersController extends CurrantController {
 
   def register( id : Long ) = Action { request =>
     Ok("It works!")
