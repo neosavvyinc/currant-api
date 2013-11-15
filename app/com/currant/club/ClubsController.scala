@@ -1,8 +1,8 @@
-package controllers
+package com.currant.club
 
 import play.api.mvc._
 
-object Clubs extends Controller {
+object ClubsController extends Controller {
   def create() = play.mvc.Results.TODO
 
   def findMembers( clubId: Float ) = play.mvc.Results.TODO

@@ -243,7 +243,7 @@ GET           /sports                                             com.currant.sp
 # :validationToken is the token used to calculate token when combined with shared secret
 # :currantProfileId is the user for whom you are requesting the clubs they are a member
 #GET           /games/clubs/:currantProfileId/:token/:validationToken/              controllers.Games.findClubsForMember()
-GET           /games/clubs/:currantProfileId                      controllers.Games.findClubsForMember( currantProfileId: Float )
+#GET           /games/clubs/:currantProfileId                      controllers.Games.findClubsForMember( currantProfileId: Float )
 
 
 
@@ -347,7 +347,7 @@ GET           /games/:gameType                                    controllers.Ga
 
 
 # We have moved this to the /club service below - see /clubs/:clubId/matches
-GET           /games/clubs/:clubId                                controllers.Games.findGamesForClubId( clubId: Float )
+#GET           /games/clubs/:clubId                                controllers.Games.findGamesForClubId( clubId: Float )
 
 # Adds a row to the GAME_PROFILE_CONNECTION with
 # Todo: maybe redo this api call to simplify for save, leave, and join a game for one user
@@ -397,13 +397,13 @@ POST          /games/:gameId/:status/:currantUserId               controllers.Ga
 #   }
 # }
 #}
-POST          /clubs/new                                          controllers.Clubs.create()
-GET           /clubs/:clubId/members                              controllers.Clubs.findMembers( clubId: Float)
-GET           /clubs/:clubId                                      controllers.Clubs.findClubInfo( clubId: Float)
+POST          /clubs/new                                          com.currant.club.ClubsController.create()
+GET           /clubs/:clubId/members                              com.currant.club.ClubsController.findMembers( clubId: Float)
+GET           /clubs/:clubId                                      com.currant.club.ClubsController.findClubInfo( clubId: Float)
 
 # matchType is future, past, all
 # CC: is a 'Game' and a 'Match' the same thing? we should probably stick to one term, doesn't really matter which, as long as we're consistent
-GET           /clubs/:clubId/matches                              controllers.Clubs.findMatches( clubId: Float, matchType : String )
+GET           /clubs/:clubId/matches                              com.currant.club.ClubsController.findMatches( clubId: Float, matchType : String )
 
 GET           /profiles/:currantUserId/clubs                      controllers.Profiles.findClubs( currantUserId:Float )
 
