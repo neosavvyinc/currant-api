@@ -8,6 +8,7 @@ object ApplicationBuild extends Build {
   val appVersion      = "1.0-SNAPSHOT"
 
   val PostgreSQL = "postgresql" % "postgresql" % "9.1-901.jdbc4"
+  //val Cobertura = ""
 
   val appDependencies = Seq(
     // Add your project dependencies here,
@@ -16,6 +17,7 @@ object ApplicationBuild extends Build {
     PostgreSQL
   )
 
+  lazy val scct_settings = Defaults.defaultSettings ++ Seq(ScctPlugin.instrumentSettings: _*)
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
     // Add your own project settings here      
