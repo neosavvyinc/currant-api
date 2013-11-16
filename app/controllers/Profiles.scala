@@ -11,7 +11,7 @@ import play.api.mvc._
  */
 object Profiles  extends Controller {
 
-  def findByFacebookId( facebookId : String ) = play.mvc.Results.TODO
+  def findByFacebookId( facebookId : String ) =Action {request =>  Ok("cool story bro") }
 
   def updatePushIdentifier() = play.mvc.Results.TODO
 

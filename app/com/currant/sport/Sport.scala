@@ -48,6 +48,7 @@ object Sport extends Logging {
 
   def create(req: Auditable[SportCreateRequest])(implicit ec: ExecutionContext): Future[Sport] = {
     future {
+
       DB.withTransaction(implicit c => {
         val id: Long = Sql.sql(insertQ(req.payload)).executeInsert(scalar[Long].single)
         fromCreate(id, req.payload)

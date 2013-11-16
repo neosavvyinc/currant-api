@@ -1,31 +1,63 @@
 package com.currant.sport
 
-import play.api.test.{FakeRequest, WithApplication, PlaySpecification}
-import play.api.libs.json.Json
-import play.mvc.Http.HeaderNames
-import play.api.http.MimeTypes
+import play.api.test.{FakeRequest, PlaySpecification}
+import play.api.libs.json.{Json, JsBoolean, JsString, JsObject}
+import scala.concurrent.Future
+import play.api.mvc.SimpleResult
+import play.api.Logger
+import com.currant.CurrantApplication
 
-class SportSpec extends PlaySpecification {
+/*Two issues:
+  not setting proper headers is NOT breaking this
+  more than one test cannot connect to the database.
+ */
 
-  implicit val sportCreateReads = Json.reads[SportCreateRequest]
-  implicit val sportCreateWrites = Json.writes[SportCreateRequest]
+object SportSpec extends PlaySpecification {
+  sequential
+
+  implicit val sportReads = Json.reads[Sport]
+
+  "Sports Controller" should {
+
+    "create sports" in new CurrantApplication {
+      val s = createSport("baseball", "pasttime", true)
+      s should not beNull
+    }
+  }
+
+  "SportController 2 " should {
+    "update sports" in new CurrantApplication {
+
+      val sport = createSport("football", "gridiron", true)
+
+      val fr = FakeRequest(POST, "/sports").
+        withJsonBody(JsObject(Seq("id" -> JsString(sport.id.toString), "name" -> JsString("foozball"), "description" -> JsString("description"), "active" -> JsBoolean(true))))
+
+      val Some(result) = route(fr)
+
+      val s = assertSport("foozball", "description", true, result)
+      s should not beNull
+    }
+  }
 
 
-//  "Sports" should {
+  private def createSport(name: String, description: String, active: Boolean): Sport = {
+    val fr = FakeRequest(PUT, "/sports").
+      withJsonBody(JsObject(Seq("name" -> JsString(name), "description" -> JsString(description), "active" -> JsBoolean(active))))
 
-//    "respond to the create Action" in new WithApplication {
-//      val fr = FakeRequest(POST, "/sport")
-//        .withHeaders(HeaderNames.CONTENT_TYPE -> MimeTypes.JSON)
-//        .withJsonBody(Json.toJson(SportCreateRequest("baseball", "baseball", true)))
-//      val result = com.currant.sport.SportController.create(fr)
-//
-//      status(result) must equalTo(OK)
-////      contentType(result) must beSome(MimeTypes.JSON)
-////      val str = contentAsString(result)
-//      print(str);
-//    }
+    val Some(result) = route(fr)
+    assertSport(name, description, active, result)
 
+  }
 
-//  }
+  private def assertSport(name: String, description: String, active: Boolean, result: Future[SimpleResult]): Sport = {
+    status(result) must be equalTo OK
+    val body = contentAsJson(result) \ "payload"
+
+    Logger.debug(body.toString)
+    val sport = body.asOpt[Sport]
+    sport should beSome(Sport(1, name, description, active, None, None, None, None))
+    sport.get
+  }
 
 }
